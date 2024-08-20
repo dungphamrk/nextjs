@@ -1,0 +1,30 @@
+.cart {
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 300px;
+  text-align: center;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+}
+
+.info {
+  padding: 16px;
+}
+
+.title {
+  font-size: 18px;
+  margin: 0;
+}
+
+.content {
+  color: #777;
+  margin: 10px 0;
+}
+
+.actions {
+  margin-top: 10px;
+}
