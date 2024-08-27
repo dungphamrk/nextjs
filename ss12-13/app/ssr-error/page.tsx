@@ -1,21 +1,28 @@
 'use client'
-import { log } from 'console';
 import React, { useEffect, useState } from 'react';
 
-export default function page() {
-    const [data, setData] = useState<any[]>([]); // Initialize state to store fetched data
+export default function Page() {
+    const [data, setData] = useState<any[]>([]); 
+    const [error, setError] = useState<string | null>(null); 
 
     useEffect(() => {
-     
         fetch("https://jsonplaceholder.typicode.com/nonexistent-url")
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
             .then(data => setData(data))
-            .catch(error => console.error("Error fetching data:", error));
+            .catch(error => setError(error.message)); 
     }, []); 
+
     return (
         <div>
             <p>xử lý lỗi với ssr</p>
-            {data.length > 0 ? (
+            {error ? (
+                <p style={{ color: 'red' }}>Error: {error}</p>
+            ) : data.length > 0 ? (
                 data.map(post => (
                     <div key={post.id}>
                         <h2>{post.title}</h2>
@@ -23,7 +30,7 @@ export default function page() {
                     </div>
                 ))
             ) : (
-                <p>{data}</p>
+                <p>Loading...</p>
             )}
         </div>
     );
